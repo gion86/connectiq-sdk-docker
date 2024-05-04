@@ -70,6 +70,7 @@ RUN \
        mesa-utils \
        libnvidia-gl-470 \
        ttf-mscorefonts-installer \
+       unzip \
     && apt-get clean
 
 # User/group
@@ -97,5 +98,25 @@ RUN \
     && chown _ciq "/opt/connectiq-sdk-linux/bin/default.jungle" \
     && mkdir "/home/ciq/src" \
     && chown _ciq:_ciq "/home/ciq/src"
+
+
+# Add ConnectIQ bin folder to the path
+ENV PATH ${PATH}:/opt/connectiq-sdk-linux/bin
+# ConnectIQ SDK home folder
+ENV CIQ_SDK_MANAGER_DIR=/home/ciq/.Garmin/ConnectIQ
+
+# Create ConnectIQ SDK home folder
+RUN mkdir -p ${CIQ_SDK_MANAGER_DIR}
+
+# Copy ConnectIQ SDK home content
+COPY ConnectIQ ${CIQ_SDK_MANAGER_DIR}
+
+# COpy ConnectIQ devices
+COPY Devices/devices.zip /tmp/devices.zip
+RUN unzip /tmp/devices.zip -d ${CIQ_SDK_MANAGER_DIR}/Devices
+RUN rm -fr /tmp/devices.zip
+
+# Update user and group owners
+RUN chown -R _ciq:_ciq ${CIQ_SDK_MANAGER_DIR}
 
 CMD /bin/bash
