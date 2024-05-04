@@ -71,6 +71,7 @@ RUN \
        libnvidia-gl-470 \
        ttf-mscorefonts-installer \
        unzip \
+       git \
     && apt-get clean
 
 # User/group
