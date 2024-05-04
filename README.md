@@ -5,6 +5,11 @@ TL;DR:
 
 * have a working [Docker](https://www.docker.com/) environment
 
+* have a folder `DeveloperKey` with all the Garmin Connect developer keys needed
+
+* have a folder `Devices` with a subfolder for each Garmin device needed for development. Those can be found in
+the folder `$HOME/.Garmin/ConnectIQ/Devices` after installation from SDK manager
+
 * export CIQ_SDK_VERSION='<version>'
 
 * build the Docker Image: [./build](./build)
