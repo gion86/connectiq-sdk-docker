@@ -116,6 +116,10 @@ COPY Devices/devices.zip /tmp/devices.zip
 RUN unzip /tmp/devices.zip -d ${CIQ_SDK_MANAGER_DIR}/Devices
 RUN rm -fr /tmp/devices.zip
 
+# Copy ConnectIQ developer keys
+RUN mkdir -p ${CIQ_SDK_MANAGER_DIR}/DeveloperKey
+COPY DeveloperKey ${CIQ_SDK_MANAGER_DIR}/DeveloperKey
+
 # Update user and group owners
 RUN chown -R _ciq:_ciq ${CIQ_SDK_MANAGER_DIR}
 
