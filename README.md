@@ -9,6 +9,8 @@ TL;DR:
 
 * build the Docker Image: [./build](./build)
 
+* run `xhost +local:s`
+
 * run the Docker Image: [./run](./run)
 
 * launch the SDK manager to install devices: `sdkmanager`
