@@ -76,7 +76,7 @@ RUN \
 
 # User/group
 RUN \
-    addgroup \
+    getent group ${CIQ_SDK_GID} || addgroup \
        --gid ${CIQ_SDK_GID} \
        --force-badname _ciq \
     && adduser \
@@ -98,7 +98,7 @@ RUN \
     && touch "/opt/connectiq-sdk-linux/bin/default.jungle" \
     && chown _ciq "/opt/connectiq-sdk-linux/bin/default.jungle" \
     && mkdir "/home/ciq/src" \
-    && chown _ciq:_ciq "/home/ciq/src"
+    && chown _ciq:${CIQ_SDK_GID} "/home/ciq/src"
 
 
 # Add ConnectIQ bin folder to the path
@@ -122,6 +122,6 @@ RUN mkdir -p ${CIQ_SDK_MANAGER_DIR}/DeveloperKey
 COPY DeveloperKey ${CIQ_SDK_MANAGER_DIR}/DeveloperKey
 
 # Update user and group owners
-RUN chown -R _ciq:_ciq ${CIQ_SDK_MANAGER_DIR}
+RUN chown -R _ciq:${CIQ_SDK_GID} ${CIQ_SDK_MANAGER_DIR}
 
 CMD /bin/bash
